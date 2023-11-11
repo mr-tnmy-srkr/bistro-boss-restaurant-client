@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
 import SectionTitle from "../../../cpmponents/SectionTitle/SectionTitle"
 import MenuItem from "../../shared/MenuItem/MenuItem"
+import useMenu from "../../../hooks/useMenu"
 
 const PopularMenu = () => {
-    const [menu,setMenu] = useState([])
+  const [menu] = useMenu();
+  const popularItems = menu.filter(item=>item.category === 'popular')
+   /*  const [menu,setMenu] = useState([])
     useEffect(()=>{
         fetch('menu.json')
         .then(res=>res.json())
@@ -11,14 +13,14 @@ const PopularMenu = () => {
             const popularItems = data.filter(item=>item.category === 'popular')
             setMenu(popularItems)
         })
-    },[])
+    },[]) */
   return (
     <div className="mb-12">
         <SectionTitle heading={"Check it out"} subHeading={"---FROM OUR MENU---"}>
         </SectionTitle>
        <div className="grid md:grid-cols-2 gap-8 px-4">
        {
-            menu.map(item=><MenuItem key={item._id} item={item}></MenuItem>)
+        popularItems.map(item=><MenuItem key={item._id} item={item}></MenuItem>)
         }
        </div>
 <div className="text-center">
