@@ -12,15 +12,15 @@ const OrderTab = ({ items }) => {
         },
     };
     return (
-        <div >
+        <div className='w-11/12 mx-auto'>
 
             <Swiper
                 pagination={pagination}
                 modules={[Pagination]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <div className='grid md:grid-cols-3 gap-10'>
+                <SwiperSlide className=''>
+                    <div className='grid  md:grid-cols-2 lg:grid-cols-3 gap-10'>
                         {
                             items.map(item => <FoodCard
                                 key={item._id}
