@@ -6,7 +6,7 @@ import saladImg from '../../../assets/menu/salad-bg.jpg'
 import pizzaImg from '../../../assets/menu/pizza-bg.jpg'
 import dessertImg from '../../../assets/menu/dessert-bg.jpeg'
 import MenuCategory from "../MenuCategory/MenuCategory";
-import SectionTitle from "../../../cpmponents/SectionTitle/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
 
 const Menu = () => {
@@ -32,7 +32,7 @@ const Menu = () => {
         heading="Today's Offer"
       ></SectionTitle>
       {/* offered menu items */}
-      <MenuCategory items={offered}></MenuCategory>
+      <MenuCategory items={offered} title={"offered"}></MenuCategory>
       {/* dessert menu items  */}
       <MenuCategory items={desserts} title={"dessert"} img={dessertImg}></MenuCategory>
       <MenuCategory items={pizza} title={"pizza"} img={pizzaImg}></MenuCategory>

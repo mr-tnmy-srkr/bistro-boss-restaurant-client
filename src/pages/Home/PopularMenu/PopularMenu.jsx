@@ -1,4 +1,4 @@
-import SectionTitle from "../../../cpmponents/SectionTitle/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import MenuItem from "../../shared/MenuItem/MenuItem";
 import useMenu from "../../../hooks/useMenu";
 

@@ -1,4 +1,4 @@
-import SectionTitle from "../../../cpmponents/SectionTitle/SectionTitle"
+import SectionTitle from "../../../components/SectionTitle/SectionTitle"
 import featuredImg from '../../../assets/home/featured.jpg';
 
 const Featured = () => {
