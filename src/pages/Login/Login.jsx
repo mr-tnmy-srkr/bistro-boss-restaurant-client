@@ -8,6 +8,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
     const [captcha,setCaptcha] = useState()
@@ -143,11 +144,12 @@ const Login = () => {
                 />
               </div>
             </form>
-            <p>
+            <p className="pl-6 ">
               <small>
-                New Here? <Link to="/signup">Create an account</Link>{" "}
+                New Here? <Link to="/signup" className="text-xl">Create an account</Link>{" "}
               </small>
             </p>
+            <SocialLogin/>
           </div>
         </div>
       </div>
