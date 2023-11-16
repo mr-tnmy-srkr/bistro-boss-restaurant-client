@@ -12,11 +12,11 @@ const useAxiosSecure = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
 
-  /*   useEffect(() => {
+   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
       const token = localStorage.getItem('access-token');
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.authorization = `Bearer ${token}`;
       }
       return config;
     });
@@ -31,8 +31,8 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [logOut, navigate, axiosSecure]);
- */
+  }, [logOut, navigate]);
+ 
   //   return [axiosSecure];
   return axiosSecure;
 };

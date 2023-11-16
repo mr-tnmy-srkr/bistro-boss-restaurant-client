@@ -13,7 +13,7 @@ const AllUsers = () => {
             return res.data;
         }
     })
-/* 
+
     const handleMakeAdmin = user =>{
         axiosSecure.patch(`/users/admin/${user._id}`)
         .then(res =>{
@@ -57,7 +57,7 @@ const AllUsers = () => {
             }
         });
     }
- */
+
     return (
         <div>
             <div className="flex justify-evenly my-4">
