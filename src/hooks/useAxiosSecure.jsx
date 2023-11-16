@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import useAuth from './useAuth';
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:5000', 
+  baseURL: "http://localhost:5000",
+
 });
 
 const useAxiosSecure = () => {
-  const { logOut } = useAuth(); 
-  const navigate = useNavigate(); 
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
 
-
-/*   useEffect(() => {
+  /*   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
       const token = localStorage.getItem('access-token');
       if (token) {
@@ -33,7 +33,7 @@ const useAxiosSecure = () => {
     );
   }, [logOut, navigate, axiosSecure]);
  */
-//   return [axiosSecure];
+  //   return [axiosSecure];
   return axiosSecure;
 };
 
