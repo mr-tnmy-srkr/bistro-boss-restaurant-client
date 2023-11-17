@@ -17,8 +17,8 @@ import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   const [cart] = useCart();
   // TODO: get isAdmin value from the database
-  // const [isAdmin] = useAdmin();
-let isAdmin = true
+  const [isAdmin] = useAdmin();
+// let isAdmin = true
   return (
     <div className="flex">
       {/*dashboard side bar*/}
