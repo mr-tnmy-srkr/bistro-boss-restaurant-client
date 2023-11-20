@@ -88,7 +88,7 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://192.168.1.5:5000/menu/${params.id}`),
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
       {
         path: "users",
