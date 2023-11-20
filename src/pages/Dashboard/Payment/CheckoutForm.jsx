@@ -6,23 +6,27 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const CheckoutForm = () => {
   const [error, setError] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
 
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [cart] = useCart();
+  const [cart,refetch] = useCart();
+  const navigate = useNavigate();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
-  const [clientSecret, setClientSecret] = useState("");
   console.log(clientSecret);
   useEffect(() => {
     // from : https://stripe.com/docs/payments/quickstart?client=react&lang=node
-    axiosSecure
+   totalPrice > 0 && axiosSecure
       .post("/create-payment-intent", { price: totalPrice })
       .then((res) => setClientSecret(res.data.clientSecret));
   }, [axiosSecure, totalPrice]);
@@ -66,7 +70,7 @@ const CheckoutForm = () => {
           card: card,
           billing_details: {
             email: user?.email || "anonymous",
-            name: user?.displayName || "anonymous", 
+            name: user?.displayName || "anonymous",
           },
         },
       });
@@ -75,7 +79,32 @@ const CheckoutForm = () => {
       console.log("confirm error", confirmError.message);
     } else {
       console.log("payment intent", paymentIntent);
-      setTransactionId(paymentIntent.id)
+      setTransactionId(paymentIntent.id);
+    }
+
+    // now save the payment in the database
+    const payment = {
+      email: user.email,
+      price: totalPrice,
+      transactionId: paymentIntent.id,
+      date: new Date(), // utc date convert. use moment js to
+      cartIds: cart.map((item) => item._id),
+      menuItemIds: cart.map((item) => item.menuItemId),
+      status: "pending",
+    };
+
+    const res = await axiosSecure.post("/payments", payment);
+    console.log("payment saved", res.data);
+    refetch();
+    if (res.data?.paymentResult?.insertedId) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Thank you for the payment",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // navigate("/dashboard/paymentHistory");
     }
   };
 
@@ -106,9 +135,9 @@ const CheckoutForm = () => {
           Pay
         </button>
         <p className="text-red-600">{error}</p>
-        {
-          transactionId && <p className="text-green-600">Your txn id : {transactionId}</p>
-        }
+        {transactionId && (
+          <p className="text-green-600">Your txn id : {transactionId}</p>
+        )}
       </form>
     </div>
   );
